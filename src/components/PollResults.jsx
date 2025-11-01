@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getResults } from '../utils/pollUtils';
+import { getResults } from '../utils/api';
 import './PollResults.css';
 
 function PollResults({ pollId, onBackToVote }) {
@@ -15,10 +15,14 @@ function PollResults({ pollId, onBackToVote }) {
     return () => clearInterval(interval);
   }, [pollId]);
 
-  const loadResults = () => {
-    const data = getResults(pollId);
-    if (data) {
-      setResults(data);
+  const loadResults = async () => {
+    try {
+      const data = await getResults(pollId);
+      if (data) {
+        setResults(data);
+      }
+    } catch (error) {
+      console.error('Error loading results:', error);
     }
   };
 

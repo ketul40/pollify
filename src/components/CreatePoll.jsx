@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { generatePollId, savePoll } from '../utils/pollUtils';
+import { createPoll } from '../utils/api';
 import './CreatePoll.css';
 
 function CreatePoll() {
@@ -9,6 +9,7 @@ function CreatePoll() {
   const [options, setOptions] = useState(['', '']);
   const [multipleChoice, setMultipleChoice] = useState(false);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const addOption = () => {
     if (options.length < 5) {
@@ -28,7 +29,7 @@ function CreatePoll() {
     setOptions(newOptions);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
@@ -44,24 +45,21 @@ function CreatePoll() {
       return;
     }
 
-    // Create poll
-    const pollId = generatePollId();
-    const pollData = {
-      question: question.trim(),
-      options: validOptions,
-      multipleChoice,
-      votes: {}
-    };
+    // Create poll via API
+    setLoading(true);
+    try {
+      const pollData = {
+        question: question.trim(),
+        options: validOptions,
+        multipleChoice,
+      };
 
-    // Initialize votes
-    validOptions.forEach((_, index) => {
-      pollData.votes[index] = 0;
-    });
-
-    if (savePoll(pollId, pollData)) {
-      navigate(`/poll/${pollId}`);
-    } else {
+      const response = await createPoll(pollData);
+      navigate(`/poll/${response.pollId}`);
+    } catch (error) {
       setError('Failed to create poll. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -143,11 +141,13 @@ function CreatePoll() {
 
         {error && <div className="error-message">{error}</div>}
 
-        <button type="submit" className="create-btn">
-          <span>Create Poll</span>
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M10 0L15 5H12V11H8V5H5L10 0Z" transform="rotate(90 10 10)"/>
-          </svg>
+        <button type="submit" className="create-btn" disabled={loading}>
+          <span>{loading ? 'Creating Poll...' : 'Create Poll'}</span>
+          {!loading && (
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M10 0L15 5H12V11H8V5H5L10 0Z" transform="rotate(90 10 10)"/>
+            </svg>
+          )}
         </button>
       </form>
 

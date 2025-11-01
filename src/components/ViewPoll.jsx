@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getPoll, hasVoted, submitVote } from '../utils/pollUtils';
+import { getPoll, submitVote, checkVoted } from '../utils/api';
 import PollResults from './PollResults';
 import './ViewPoll.css';
 
@@ -12,18 +12,30 @@ function ViewPoll() {
   const [showResults, setShowResults] = useState(false);
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    const pollData = getPoll(pollId);
-    if (!pollData) {
-      setError('Poll not found');
-    } else {
-      setPoll(pollData);
-      // If user has already voted, show results
-      if (hasVoted(pollId)) {
-        setShowResults(true);
+    const loadPoll = async () => {
+      try {
+        const pollData = await getPoll(pollId);
+        if (!pollData) {
+          setError('Poll not found');
+        } else {
+          setPoll(pollData);
+          // Check if user has already voted
+          const voted = await checkVoted(pollId);
+          if (voted) {
+            setShowResults(true);
+          }
+        }
+      } catch (err) {
+        setError('Failed to load poll');
+      } finally {
+        setLoading(false);
       }
-    }
+    };
+    loadPoll();
   }, [pollId]);
 
   const handleOptionSelect = (index) => {
@@ -40,18 +52,25 @@ function ViewPoll() {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (selectedOptions.length === 0) {
       setError('Please select at least one option');
       return;
     }
 
-    if (submitVote(pollId, selectedOptions)) {
+    setSubmitting(true);
+    setError('');
+
+    try {
+      await submitVote(pollId, selectedOptions);
       setShowResults(true);
       // Refresh poll data
-      setPoll(getPoll(pollId));
-    } else {
-      setError('Failed to submit vote. Please try again.');
+      const updatedPoll = await getPoll(pollId);
+      setPoll(updatedPoll);
+    } catch (err) {
+      setError(err.message || 'Failed to submit vote. Please try again.');
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -78,7 +97,7 @@ function ViewPoll() {
     );
   }
 
-  if (!poll) {
+  if (loading || !poll) {
     return (
       <div className="view-poll loading">
         <div className="loading-spinner">Loading...</div>
@@ -139,9 +158,9 @@ function ViewPoll() {
           <button
             onClick={handleSubmit}
             className="submit-vote-btn"
-            disabled={selectedOptions.length === 0}
+            disabled={selectedOptions.length === 0 || submitting}
           >
-            Submit Vote
+            {submitting ? 'Submitting...' : 'Submit Vote'}
           </button>
           <button onClick={() => setShowResults(true)} className="view-results-btn">
             View Results
