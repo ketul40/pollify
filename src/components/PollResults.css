@@ -746,84 +746,82 @@
 }
 
 /* Light mode */
-@media (prefers-color-scheme: light) {
-  .results-card {
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  }
+[data-theme="light"] .results-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
 
-  .results-question {
-    color: #000;
-  }
+[data-theme="light"] .results-question {
+  color: #000;
+}
 
-  .vote-label {
-    color: rgba(0, 0, 0, 0.6);
-  }
+[data-theme="light"] .vote-label {
+  color: rgba(0, 0, 0, 0.6);
+}
 
-  .result-item {
-    background: rgba(0, 0, 0, 0.02);
-    border-color: rgba(0, 0, 0, 0.08);
-  }
+[data-theme="light"] .result-item {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.08);
+}
 
-  .result-item:hover {
-    background: rgba(0, 0, 0, 0.04);
-  }
+[data-theme="light"] .result-item:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
 
-  .result-option {
-    color: #000;
-  }
+[data-theme="light"] .result-option {
+  color: #000;
+}
 
-  .result-votes {
-    color: rgba(0, 0, 0, 0.6);
-  }
+[data-theme="light"] .result-votes {
+  color: rgba(0, 0, 0, 0.6);
+}
 
-  .result-bar-container {
-    background: rgba(0, 0, 0, 0.05);
-  }
+[data-theme="light"] .result-bar-container {
+  background: rgba(0, 0, 0, 0.05);
+}
 
-  .secondary-btn {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.2);
-    color: rgba(0, 0, 0, 0.9);
-  }
+[data-theme="light"] .secondary-btn {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.9);
+}
 
-  .secondary-btn:hover {
-    background: rgba(0, 0, 0, 0.08);
-  }
+[data-theme="light"] .secondary-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
 
-  .share-section {
-    background: rgba(0, 0, 0, 0.02);
-    border-color: rgba(0, 0, 0, 0.08);
-  }
+[data-theme="light"] .share-section {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.08);
+}
 
-  .share-label {
-    color: rgba(0, 0, 0, 0.6);
-  }
+[data-theme="light"] .share-label {
+  color: rgba(0, 0, 0, 0.6);
+}
 
-  .share-link {
-    background: rgba(0, 0, 0, 0.03);
-    border-color: rgba(0, 0, 0, 0.1);
-    color: rgba(0, 0, 0, 0.7);
-  }
+[data-theme="light"] .share-link {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: rgba(0, 0, 0, 0.7);
+}
 
-  .copy-btn {
-    background: rgba(100, 108, 255, 0.1);
-    border-color: rgba(100, 108, 255, 0.3);
-  }
+[data-theme="light"] .copy-btn {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: rgba(139, 92, 246, 0.3);
+}
 
-  .copy-btn:hover {
-    background: rgba(100, 108, 255, 0.15);
-  }
+[data-theme="light"] .copy-btn:hover {
+  background: rgba(139, 92, 246, 0.15);
+}
 
-  .live-indicator {
-    background: rgba(100, 255, 100, 0.1);
-    border-color: rgba(100, 255, 100, 0.3);
-    color: #00aa00;
-  }
+[data-theme="light"] .live-indicator {
+  background: rgba(100, 255, 100, 0.1);
+  border-color: rgba(100, 255, 100, 0.3);
+  color: #00aa00;
+}
 
-  .live-dot {
-    background: #00aa00;
-  }
+[data-theme="light"] .live-dot {
+  background: #00aa00;
 }
 

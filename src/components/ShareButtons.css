@@ -324,32 +324,30 @@
 }
 
 /* Light mode */
-@media (prefers-color-scheme: light) {
-  .share-buttons {
-    background: rgba(0, 0, 0, 0.02);
-    border-color: rgba(0, 0, 0, 0.08);
-  }
+[data-theme="light"] .share-buttons {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.08);
+}
 
-  .share-title {
-    color: rgba(0, 0, 0, 0.9);
-  }
+[data-theme="light"] .share-title {
+  color: rgba(0, 0, 0, 0.9);
+}
 
-  .share-btn {
-    background: rgba(0, 0, 0, 0.03);
-    border-color: rgba(0, 0, 0, 0.1);
-    color: #000;
-  }
+[data-theme="light"] .share-btn {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #000;
+}
 
-  .share-btn:hover {
-    background: rgba(0, 0, 0, 0.05);
-  }
+[data-theme="light"] .share-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
 
-  .qr-code-container {
-    background: rgba(0, 0, 0, 0.03);
-  }
+[data-theme="light"] .qr-code-container {
+  background: rgba(0, 0, 0, 0.03);
+}
 
-  .qr-instructions {
-    color: rgba(0, 0, 0, 0.7);
-  }
+[data-theme="light"] .qr-instructions {
+  color: rgba(0, 0, 0, 0.7);
 }
 

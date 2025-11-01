@@ -516,28 +516,29 @@
 }
 
 /* Light mode */
-@media (prefers-color-scheme: light) {
-  .home-btn {
+[data-theme="light"] .home-btn {
     background: rgba(0, 0, 0, 0.05);
     border-color: rgba(0, 0, 0, 0.1);
     color: rgba(0, 0, 0, 0.8);
   }
 
-  .home-btn:hover {
-    background: rgba(0, 0, 0, 0.08);
-  }
 
-  .poll-card {
+[data-theme="light"] .home-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .poll-card {
     background: rgba(255, 255, 255, 0.9);
     border: 1px solid rgba(0, 0, 0, 0.1);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   }
 
-  .poll-question {
-    color: #000;
-  }
 
-  .vote-option {
+[data-theme="light"] .poll-question {
+  color: #000;
+}
+
+[data-theme="light"] .vote-option {
     background: rgba(0, 0, 0, 0.03);
     border-color: rgba(0, 0, 0, 0.1);
     color: rgba(0, 0, 0, 0.9);

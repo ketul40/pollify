@@ -417,54 +417,52 @@
 }
 
 /* Light mode */
-@media (prefers-color-scheme: light) {
-  .tagline {
-    color: rgba(0, 0, 0, 0.7);
-  }
+[data-theme="light"] .tagline {
+  color: rgba(0, 0, 0, 0.7);
+}
 
-  .poll-form {
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  }
+[data-theme="light"] .poll-form {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
 
-  .form-label {
-    color: rgba(0, 0, 0, 0.9);
-  }
+[data-theme="light"] .form-label {
+  color: rgba(0, 0, 0, 0.9);
+}
 
-  .question-input,
-  .option-input {
-    background: rgba(0, 0, 0, 0.04);
-    border-color: rgba(0, 0, 0, 0.1);
-    color: #000;
-  }
+[data-theme="light"] .question-input,
+[data-theme="light"] .option-input {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #000;
+}
 
-  .question-input:focus,
-  .option-input:focus {
-    background: rgba(0, 0, 0, 0.06);
-  }
+[data-theme="light"] .question-input:focus,
+[data-theme="light"] .option-input:focus {
+  background: rgba(0, 0, 0, 0.06);
+}
 
-  .question-input::placeholder,
-  .option-input::placeholder {
-    color: rgba(0, 0, 0, 0.4);
-  }
+[data-theme="light"] .question-input::placeholder,
+[data-theme="light"] .option-input::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
 
-  .add-option-btn {
-    background: rgba(0, 0, 0, 0.03);
-    border-color: rgba(0, 0, 0, 0.2);
-    color: rgba(0, 0, 0, 0.7);
-  }
+[data-theme="light"] .add-option-btn {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.7);
+}
 
-  .add-option-btn:hover {
-    background: rgba(0, 0, 0, 0.05);
-  }
+[data-theme="light"] .add-option-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
 
-  .checkbox-label span {
-    color: rgba(0, 0, 0, 0.8);
-  }
+[data-theme="light"] .checkbox-label span {
+  color: rgba(0, 0, 0, 0.8);
+}
 
-  .feature-item {
-    color: rgba(0, 0, 0, 0.6);
-  }
+[data-theme="light"] .feature-item {
+  color: rgba(0, 0, 0, 0.6);
 }
 

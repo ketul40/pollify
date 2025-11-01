@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Duplicate Finder</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <style>
+        body {
+            padding: 20px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 95%;
+        }
+        .upload-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .section-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .section-title {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        .table-container {
+            max-height: 500px;
+            overflow: auto;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        .table {
+            margin-bottom: 0;
+        }
+        .table thead th {
+            position: sticky;
+            top: 0;
+            background-color: #667eea;
+            color: white;
+            z-index: 10;
+            border: none;
+            padding: 12px;
+        }
+        .table tbody td {
+            padding: 10px 12px;
+        }
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(102, 126, 234, 0.05);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(86, 171, 47, 0.4);
+        }
+        .info-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        .info-box h5 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .custom-file-label::after {
+            content: "Browse";
+        }
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .spinner-border {
+            display: none;
+        }
+        .processing {
+            display: inline-block !important;
+        }
+        @media (max-width: 768px) {
+            .stat-number {
+                font-size: 1.8rem;
+            }
+            .container {
+                max-width: 98%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Upload Section -->
+        <div id="uploadSection" class="upload-card">
+            <div class="text-center mb-4">
+                <h1 class="mb-2" style="color: #667eea;">📊 CSV Duplicate Finder</h1>
+                <p class="text-muted">Upload a CSV file to identify duplicate rows</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="fileInput" class="font-weight-bold">Choose CSV File:</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="fileInput" accept=".csv">
+                    <label class="custom-file-label" for="fileInput">Select a CSV file...</label>
+                </div>
+                <small class="form-text text-muted">Maximum recommended size: 50MB</small>
+            </div>
+            
+            <button id="processBtn" class="btn btn-primary btn-block mt-3" disabled>
+                <span class="spinner-border spinner-border-sm mr-2" role="status" aria-hidden="true"></span>
+                <span id="btnText">🔍 Upload and Find Duplicates</span>
+            </button>
+
+            <div class="info-box">
+                <h5>How it works:</h5>
+                <ul class="mb-0">
+                    <li>Upload a CSV file with any number of columns</li>
+                    <li>The app will identify rows that are identical across <strong>all columns</strong></li>
+                    <li>View both original data and duplicate rows</li>
+                    <li>Download a CSV file containing only the duplicates</li>
+                    <li><strong>All processing happens in your browser - no data is uploaded to a server!</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="hidden">
+            <div class="page-header">
+                <h1 class="mb-0 text-center">📊 CSV Processing Results</h1>
+                <p class="text-center mb-0 mt-2" id="filename"></p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalRows">0</div>
+                        <div class="stat-label">Total Rows</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="duplicateRows">0</div>
+                        <div class="stat-label">Duplicate Rows</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="uniqueRows">0</div>
+                        <div class="stat-label">Unique Rows</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Original Data -->
+            <div class="section-card">
+                <h2 class="section-title">📄 Original Data</h2>
+                <div class="table-container">
+                    <table class="table table-striped" id="originalTable">
+                        <thead id="originalTableHead"></thead>
+                        <tbody id="originalTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Duplicates -->
+            <div class="section-card">
+                <h2 class="section-title">🔍 Duplicate Rows</h2>
+                <div id="duplicatesContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let originalData = [];
+        let duplicateData = [];
+        let fileName = '';
+
+        // File input change handler
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                document.querySelector('.custom-file-label').textContent = file.name;
+                document.getElementById('processBtn').disabled = false;
+                fileName = file.name;
+            } else {
+                document.querySelector('.custom-file-label').textContent = 'Select a CSV file...';
+                document.getElementById('processBtn').disabled = true;
+            }
+        });
+
+        // Process button click handler
+        document.getElementById('processBtn').addEventListener('click', function() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            
+            if (!file) {
+                alert('Please select a CSV file first.');
+                return;
+            }
+
+            // Show processing state
+            const btn = document.getElementById('processBtn');
+            const spinner = btn.querySelector('.spinner-border');
+            const btnText = document.getElementById('btnText');
+            
+            btn.disabled = true;
+            spinner.classList.add('processing');
+            btnText.textContent = 'Processing...';
+
+            // Parse CSV file
+            Papa.parse(file, {
+                header: true,
+                skipEmptyLines: true,
+                complete: function(results) {
+                    originalData = results.data;
+                    
+                    // Find duplicates
+                    duplicateData = findDuplicates(originalData);
+                    
+                    // Display results
+                    displayResults();
+                    
+                    // Reset button state
+                    btn.disabled = false;
+                    spinner.classList.remove('processing');
+                    btnText.textContent = '🔍 Upload and Find Duplicates';
+                },
+                error: function(error) {
+                    alert('Error parsing CSV file: ' + error.message);
+                    btn.disabled = false;
+                    spinner.classList.remove('processing');
+                    btnText.textContent = '🔍 Upload and Find Duplicates';
+                }
+            });
+        });
+
+        // Find duplicate rows (identical across all columns)
+        function findDuplicates(data) {
+            const duplicates = [];
+            const seen = new Map();
+            
+            data.forEach((row, index) => {
+                // Create a string representation of the row
+                const rowString = JSON.stringify(row);
+                
+                if (seen.has(rowString)) {
+                    // This is a duplicate
+                    seen.get(rowString).push(index);
+                } else {
+                    seen.set(rowString, [index]);
+                }
+            });
+            
+            // Collect all rows that appear more than once
+            seen.forEach((indices, rowString) => {
+                if (indices.length > 1) {
+                    indices.forEach(index => {
+                        duplicates.push(data[index]);
+                    });
+                }
+            });
+            
+            return duplicates;
+        }
+
+        // Display results
+        function displayResults() {
+            // Update stats
+            document.getElementById('filename').textContent = `File: ${fileName}`;
+            document.getElementById('totalRows').textContent = originalData.length;
+            document.getElementById('duplicateRows').textContent = duplicateData.length;
+            document.getElementById('uniqueRows').textContent = originalData.length - duplicateData.length;
+
+            // Display original data
+            displayTable(originalData, 'originalTable');
+
+            // Display duplicates
+            const duplicatesContent = document.getElementById('duplicatesContent');
+            if (duplicateData.length > 0) {
+                duplicatesContent.innerHTML = `
+                    <div class="alert alert-success" role="alert">
+                        <strong>${duplicateData.length} duplicate rows</strong> were found in your CSV file. 
+                        These are rows that are identical across all columns.
+                    </div>
+                    <div class="table-container">
+                        <table class="table table-striped" id="duplicateTable">
+                            <thead id="duplicateTableHead"></thead>
+                            <tbody id="duplicateTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn btn-success" onclick="downloadDuplicates()">
+                            ⬇️ Download Duplicates CSV
+                        </button>
+                        <button class="btn btn-secondary" onclick="resetApp()">
+                            📤 Upload Another CSV
+                        </button>
+                    </div>
+                `;
+                displayTable(duplicateData, 'duplicateTable');
+            } else {
+                duplicatesContent.innerHTML = `
+                    <div class="alert alert-info" role="alert">
+                        <h4 class="alert-heading">✅ No Duplicates Found!</h4>
+                        <p class="mb-0">Your CSV file does not contain any duplicate rows. All rows are unique across all columns.</p>
+                    </div>
+                    <button class="btn btn-secondary" onclick="resetApp()">
+                        📤 Upload Another CSV
+                    </button>
+                `;
+            }
+
+            // Show results section
+            document.getElementById('uploadSection').classList.add('hidden');
+            document.getElementById('resultsSection').classList.remove('hidden');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Display data in table
+        function displayTable(data, tableId) {
+            if (data.length === 0) return;
+
+            const table = document.getElementById(tableId);
+            const thead = document.getElementById(tableId + 'Head');
+            const tbody = document.getElementById(tableId + 'Body');
+
+            // Clear existing content
+            thead.innerHTML = '';
+            tbody.innerHTML = '';
+
+            // Get column names
+            const columns = Object.keys(data[0]);
+
+            // Create header
+            const headerRow = document.createElement('tr');
+            columns.forEach(col => {
+                const th = document.createElement('th');
+                th.textContent = col;
+                headerRow.appendChild(th);
+            });
+            thead.appendChild(headerRow);
+
+            // Create body rows
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                columns.forEach(col => {
+                    const td = document.createElement('td');
+                    td.textContent = row[col] || '';
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Download duplicates as CSV
+        function downloadDuplicates() {
+            if (duplicateData.length === 0) {
+                alert('No duplicates to download.');
+                return;
+            }
+
+            // Convert to CSV
+            const csv = Papa.unparse(duplicateData);
+            
+            // Create blob and download
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            
+            link.setAttribute('href', url);
+            link.setAttribute('download', `duplicates_${fileName}`);
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Reset app to initial state
+        function resetApp() {
+            // Clear data
+            originalData = [];
+            duplicateData = [];
+            fileName = '';
+
+            // Reset file input
+            document.getElementById('fileInput').value = '';
+            document.querySelector('.custom-file-label').textContent = 'Select a CSV file...';
+            document.getElementById('processBtn').disabled = true;
+
+            // Show upload section
+            document.getElementById('uploadSection').classList.remove('hidden');
+            document.getElementById('resultsSection').classList.add('hidden');
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

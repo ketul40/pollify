@@ -494,61 +494,59 @@
 }
 
 /* Light mode */
-@media (prefers-color-scheme: light) {
-  .poll-statistics {
-    background: rgba(0, 0, 0, 0.02);
-    border-color: rgba(0, 0, 0, 0.08);
-  }
+[data-theme="light"] .poll-statistics {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.08);
+}
 
-  .stats-title {
-    color: rgba(0, 0, 0, 0.9);
-  }
+[data-theme="light"] .stats-title {
+  color: rgba(0, 0, 0, 0.9);
+}
 
-  .stat-card {
-    background: rgba(0, 0, 0, 0.03);
-    border-color: rgba(0, 0, 0, 0.1);
-  }
+[data-theme="light"] .stat-card {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.1);
+}
 
-  .stat-card:hover {
-    background: rgba(0, 0, 0, 0.05);
-  }
+[data-theme="light"] .stat-card:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
 
-  .stat-label {
-    color: rgba(0, 0, 0, 0.6);
-  }
+[data-theme="light"] .stat-label {
+  color: rgba(0, 0, 0, 0.6);
+}
 
-  .winner-name {
-    color: #000;
-  }
+[data-theme="light"] .winner-name {
+  color: #000;
+}
 
-  .winner-stats {
-    color: rgba(0, 0, 0, 0.7);
-  }
+[data-theme="light"] .winner-stats {
+  color: rgba(0, 0, 0, 0.7);
+}
 
-  .leaderboard-title {
-    color: rgba(0, 0, 0, 0.8);
-  }
+[data-theme="light"] .leaderboard-title {
+  color: rgba(0, 0, 0, 0.8);
+}
 
-  .leaderboard-item {
-    background: rgba(0, 0, 0, 0.03);
-    border-color: rgba(0, 0, 0, 0.1);
-  }
+[data-theme="light"] .leaderboard-item {
+  background: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.1);
+}
 
-  .leaderboard-item:hover {
-    background: rgba(0, 0, 0, 0.05);
-  }
+[data-theme="light"] .leaderboard-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
 
-  .rank-option {
-    color: #000;
-  }
+[data-theme="light"] .rank-option {
+  color: #000;
+}
 
-  .rank-votes {
-    color: rgba(0, 0, 0, 0.9);
-  }
+[data-theme="light"] .rank-votes {
+  color: rgba(0, 0, 0, 0.9);
+}
 
-  .rank-percentage {
-    color: rgba(0, 0, 0, 0.6);
-    background: rgba(0, 0, 0, 0.08);
-  }
+[data-theme="light"] .rank-percentage {
+  color: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.08);
 }
 
