@@ -46,7 +46,7 @@ const TEMPLATES = [
     icon: '🎉',
     name: 'Event RSVP',
     question: 'Can you attend the event?',
-    options: ['Yes, I'll be there!', 'Maybe', 'No, sorry'],
+    options: ['Yes, I\'ll be there!', 'Maybe', 'No, sorry'],
     multipleChoice: false
   },
   {
