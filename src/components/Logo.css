@@ -1,0 +1,46 @@
+.logo-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-icon-svg {
+  filter: drop-shadow(0 4px 12px rgba(139, 92, 246, 0.4));
+  transition: all 0.3s ease;
+}
+
+.logo-container:hover .logo-icon-svg {
+  filter: drop-shadow(0 6px 16px rgba(139, 92, 246, 0.6));
+  transform: scale(1.05);
+}
+
+.logo-wordmark {
+  display: flex;
+  align-items: center;
+}
+
+.logo-text {
+  font-weight: 700;
+  background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+  position: relative;
+}
+
+/* Animation on hover */
+.logo-full:hover .logo-text {
+  background: linear-gradient(135deg, #9D6FF7 0%, #F269B4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .logo-container {
+    gap: 0.5rem;
+  }
+}
+

@@ -7,31 +7,12 @@
 
 /* Header */
 .create-poll-header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.logo-section {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.logo-icon {
-  font-size: 3rem;
-  filter: drop-shadow(0 4px 8px rgba(100, 108, 255, 0.3));
-}
-
-.create-poll-header h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, #646cff 0%, #61dafb 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin: 0;
+  gap: 0.75rem;
+  margin-bottom: 3rem;
+  text-align: center;
 }
 
 .tagline {
@@ -46,8 +27,8 @@
   max-width: 700px;
   margin: 0 auto 1.5rem;
   padding: 1rem 1.5rem;
-  background: linear-gradient(135deg, rgba(100, 108, 255, 0.15) 0%, rgba(97, 218, 251, 0.15) 100%);
-  border: 2px dashed rgba(100, 108, 255, 0.4);
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);
+  border: 2px dashed rgba(139, 92, 246, 0.4);
   border-radius: 12px;
   color: rgba(255, 255, 255, 0.9);
   font-size: 1rem;
@@ -58,8 +39,8 @@
 }
 
 .templates-trigger-btn:hover {
-  background: linear-gradient(135deg, rgba(100, 108, 255, 0.25) 0%, rgba(97, 218, 251, 0.25) 100%);
-  border-color: #646cff;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.25) 0%, rgba(236, 72, 153, 0.25) 100%);
+  border-color: #8B5CF6;
   transform: translateY(-2px);
 }
 
@@ -100,7 +81,7 @@
 
 .question-input:focus {
   background: rgba(255, 255, 255, 0.1);
-  border-color: #646cff;
+  border-color: #8B5CF6;
   outline: none;
 }
 
@@ -128,7 +109,7 @@
   justify-content: center;
   width: 32px;
   height: 32px;
-  background: linear-gradient(135deg, #646cff 0%, #61dafb 100%);
+  background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
   border-radius: 8px;
   font-weight: 600;
   font-size: 0.9rem;
@@ -149,7 +130,7 @@
 
 .option-input:focus {
   background: rgba(255, 255, 255, 0.1);
-  border-color: #646cff;
+  border-color: #8B5CF6;
   outline: none;
 }
 
@@ -190,8 +171,8 @@
 
 .add-option-btn:hover {
   background: rgba(255, 255, 255, 0.08);
-  border-color: #646cff;
-  color: #61dafb;
+  border-color: #8B5CF6;
+  color: #EC4899;
 }
 
 /* Checkbox */
@@ -208,7 +189,7 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
-  accent-color: #646cff;
+  accent-color: #8B5CF6;
 }
 
 .checkbox-label span {
@@ -231,7 +212,7 @@
 .create-btn {
   width: 100%;
   padding: 1.125rem 2rem;
-  background: linear-gradient(135deg, #646cff 0%, #61dafb 100%);
+  background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
   border-radius: 12px;
   color: white;
   font-size: 1.1rem;
@@ -240,13 +221,13 @@
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  box-shadow: 0 4px 20px rgba(100, 108, 255, 0.4);
+  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
   transition: all 0.3s ease;
 }
 
 .create-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 28px rgba(100, 108, 255, 0.5);
+  box-shadow: 0 6px 28px rgba(139, 92, 246, 0.5);
 }
 
 .create-btn:active {
@@ -280,14 +261,6 @@
   .create-poll {
     max-width: 100%;
     padding: 1.5rem 1rem;
-  }
-
-  .create-poll-header h1 {
-    font-size: 1.75rem;
-  }
-
-  .logo-icon {
-    font-size: 2.25rem;
   }
 
   .tagline {
@@ -336,14 +309,6 @@
 
   .create-poll-header {
     margin-bottom: 2rem;
-  }
-
-  .logo-icon {
-    font-size: 2.75rem;
-  }
-
-  .create-poll-header h1 {
-    font-size: 2.25rem;
   }
 
   .tagline {
@@ -399,14 +364,6 @@
   .create-poll {
     max-width: 1000px;
     padding: 4rem 3rem;
-  }
-
-  .logo-icon {
-    font-size: 4rem;
-  }
-
-  .create-poll-header h1 {
-    font-size: 3.25rem;
   }
 
   .tagline {

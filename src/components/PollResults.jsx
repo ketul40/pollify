@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getResults } from '../utils/api';
 import ShareButtons from './ShareButtons';
 import PollStatistics from './PollStatistics';
+import Logo from './Logo';
 import './PollResults.css';
 
 function PollResults({ pollId, onBackToVote }) {
@@ -52,10 +53,7 @@ function PollResults({ pollId, onBackToVote }) {
         <button onClick={() => navigate('/')} className="home-btn">
           ← Home
         </button>
-        <div className="logo-mini">
-          <span className="logo-icon">📊</span>
-          <span>Pollify</span>
-        </div>
+        <Logo size="small" variant="full" />
       </div>
 
       <div className="results-card">

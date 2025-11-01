@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getPoll, submitVote, checkVoted } from '../utils/api';
 import { celebrateVote } from '../utils/celebrations';
 import PollResults from './PollResults';
+import Logo from './Logo';
 import './ViewPoll.css';
 
 function ViewPoll() {
@@ -119,10 +120,7 @@ function ViewPoll() {
         <button onClick={() => navigate('/')} className="home-btn">
           ← Home
         </button>
-        <div className="logo-mini">
-          <span className="logo-icon">📊</span>
-          <span>Pollify</span>
-        </div>
+        <Logo size="small" variant="full" />
       </div>
 
       <div className="poll-card">

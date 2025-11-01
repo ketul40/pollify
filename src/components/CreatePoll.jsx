@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createPoll } from '../utils/api';
 import { celebratePollCreation } from '../utils/celebrations';
 import PollTemplates from './PollTemplates';
+import Logo from './Logo';
 import './CreatePoll.css';
 
 function CreatePoll() {
@@ -85,10 +86,7 @@ function CreatePoll() {
       )}
 
       <div className="create-poll-header">
-        <div className="logo-section">
-          <div className="logo-icon">📊</div>
-          <h1>Pollify</h1>
-        </div>
+        <Logo size="large" variant="full" />
         <p className="tagline">Simple, Instant Polls for Everyone</p>
       </div>
 

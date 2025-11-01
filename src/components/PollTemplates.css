@@ -55,7 +55,7 @@
 
 .templates-header h2 {
   font-size: 1.75rem;
-  background: linear-gradient(135deg, #646cff 0%, #61dafb 100%);
+  background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -98,7 +98,7 @@
 
 .template-card:hover {
   transform: translateY(-8px);
-  border-color: #646cff;
+    border-color: #8B5CF6;
   box-shadow: 0 12px 32px rgba(100, 108, 255, 0.2);
 }
 
@@ -383,7 +383,7 @@
   }
 
   .template-card:hover {
-    border-color: #61dafb;
+    border-color: #EC4899;
   }
 
   .template-name {
