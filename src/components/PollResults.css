@@ -9,7 +9,7 @@
 .results-container {
   display: flex;
   gap: 2rem;
-  align-items: flex-start;
+  align-items: stretch;
 }
 
 /* Header */
@@ -34,6 +34,8 @@
 .results-main {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Sidebar for stats */
@@ -41,7 +43,11 @@
   flex: 0 0 350px;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+}
+
+/* Share buttons spanning both columns */
+.results-card > .share-buttons {
+  margin-top: 2rem;
 }
 
 
@@ -296,12 +302,17 @@
   /* Stack layout on mobile */
   .results-container {
     flex-direction: column;
+    align-items: stretch;
   }
 
   .results-main,
   .results-sidebar {
     flex: none;
     width: 100%;
+  }
+
+  .results-card > .share-buttons {
+    margin-top: 1.5rem;
   }
 
   .results-card {
@@ -376,6 +387,7 @@
   /* Stack layout on tablet */
   .results-container {
     flex-direction: column;
+    align-items: stretch;
   }
 
   .results-main,
@@ -386,6 +398,10 @@
 
   .results-card {
     padding: 2rem;
+  }
+
+  .results-card > .share-buttons {
+    margin-top: 1.5rem;
   }
 }
 
@@ -404,16 +420,20 @@
   .results-container {
     display: flex;
     gap: 2rem;
+    align-items: stretch;
   }
 
   .results-main {
     flex: 1;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
   }
 
   .results-sidebar {
     flex: 0 0 360px;
-    gap: 1rem;
+    display: flex;
+    flex-direction: column;
   }
 
   .results-card {
@@ -495,6 +515,17 @@
     border-radius: 14px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
     margin: 0 !important;
+  }
+
+  /* Share buttons spanning full width below both columns */
+  .results-card > .share-buttons {
+    margin-top: 2rem;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    padding: 1.25rem !important;
   }
 
   .poll-statistics {
@@ -588,25 +619,20 @@
     padding: 0.15rem 0.35rem;
   }
 
-  /* Share section in sidebar */
-  .results-sidebar .share-buttons {
-    padding: 1.25rem !important;
-    margin: 0 !important;
-  }
-
-  .results-sidebar .share-title {
+  /* Share section styling for 1080p */
+  .results-card > .share-buttons .share-title {
     font-size: 0.75rem;
     margin-bottom: 0.875rem;
     letter-spacing: 0.05em;
   }
 
-  .results-sidebar .share-grid {
+  .results-card > .share-buttons .share-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 0.5rem;
   }
 
-  .results-sidebar .share-btn {
+  .results-card > .share-buttons .share-btn {
     padding: 0.625rem 0.5rem;
     font-size: 0.75rem;
     flex-direction: row;
@@ -615,7 +641,7 @@
     border-radius: 8px;
   }
 
-  .results-sidebar .share-icon {
+  .results-card > .share-buttons .share-icon {
     font-size: 1.05rem;
     margin: 0;
   }
@@ -628,9 +654,22 @@
     padding: 3rem 2.5rem;
   }
 
+  .results-container {
+    align-items: stretch;
+  }
+
+  .results-main {
+    display: flex;
+    flex-direction: column;
+  }
+
   .results-card {
     padding: 3.5rem;
     border-radius: 28px;
+  }
+
+  .results-card > .share-buttons {
+    margin-top: 2.5rem;
   }
 
   .results-question {

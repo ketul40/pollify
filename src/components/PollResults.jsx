@@ -111,10 +111,10 @@ function PollResults({ pollId, onBackToVote }) {
 
           <div className="results-sidebar">
             <PollStatistics results={results} />
-            
-            <ShareButtons pollId={pollId} question={results.question} />
           </div>
         </div>
+        
+        <ShareButtons pollId={pollId} question={results.question} />
       </div>
     </div>
   );
