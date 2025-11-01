@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createPoll } from '../utils/api';
+import { celebratePollCreation } from '../utils/celebrations';
+import PollTemplates from './PollTemplates';
 import './CreatePoll.css';
 
 function CreatePoll() {
@@ -10,6 +12,7 @@ function CreatePoll() {
   const [multipleChoice, setMultipleChoice] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showTemplates, setShowTemplates] = useState(false);
 
   const addOption = () => {
     if (options.length < 5) {
@@ -55,7 +58,10 @@ function CreatePoll() {
       };
 
       const response = await createPoll(pollData);
-      navigate(`/poll/${response.pollId}`);
+      celebratePollCreation(); // 🎉 Celebration!
+      setTimeout(() => {
+        navigate(`/poll/${response.pollId}`);
+      }, 500);
     } catch (error) {
       setError('Failed to create poll. Please try again.');
     } finally {
@@ -63,8 +69,21 @@ function CreatePoll() {
     }
   };
 
+  const handleTemplateSelect = (template) => {
+    setQuestion(template.question);
+    setOptions(template.options);
+    setMultipleChoice(template.multipleChoice);
+  };
+
   return (
     <div className="create-poll">
+      {showTemplates && (
+        <PollTemplates
+          onSelectTemplate={handleTemplateSelect}
+          onClose={() => setShowTemplates(false)}
+        />
+      )}
+
       <div className="create-poll-header">
         <div className="logo-section">
           <div className="logo-icon">📊</div>
@@ -72,6 +91,14 @@ function CreatePoll() {
         </div>
         <p className="tagline">Simple, Instant Polls for Everyone</p>
       </div>
+
+      <button
+        type="button"
+        className="templates-trigger-btn"
+        onClick={() => setShowTemplates(true)}
+      >
+        📋 Use a Template
+      </button>
 
       <form onSubmit={handleSubmit} className="poll-form">
         <div className="form-section">

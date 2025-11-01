@@ -1,0 +1,178 @@
+.share-buttons {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+
+.share-title {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.share-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.75rem;
+}
+
+.share-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.share-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.share-icon {
+  font-size: 1.5rem;
+}
+
+.copy-btn:hover {
+  border-color: #61dafb;
+  background: rgba(97, 218, 251, 0.1);
+}
+
+.twitter-btn:hover {
+  border-color: #1DA1F2;
+  background: rgba(29, 161, 242, 0.1);
+}
+
+.facebook-btn:hover {
+  border-color: #4267B2;
+  background: rgba(66, 103, 178, 0.1);
+}
+
+.whatsapp-btn:hover {
+  border-color: #25D366;
+  background: rgba(37, 211, 102, 0.1);
+}
+
+.linkedin-btn:hover {
+  border-color: #0077B5;
+  background: rgba(0, 119, 181, 0.1);
+}
+
+.qr-btn:hover {
+  border-color: #646cff;
+  background: rgba(100, 108, 255, 0.1);
+}
+
+.native-btn:hover {
+  border-color: #61dafb;
+  background: rgba(97, 218, 251, 0.1);
+}
+
+/* QR Code */
+.qr-code-container {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  text-align: center;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.qr-code-wrapper {
+  display: inline-block;
+  padding: 1rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.qr-instructions {
+  margin: 1rem 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+.download-qr-btn {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #646cff 0%, #61dafb 100%);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.download-qr-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(100, 108, 255, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .share-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .qr-code-wrapper {
+    padding: 0.75rem;
+  }
+
+  .qr-code-wrapper svg {
+    width: 180px !important;
+    height: 180px !important;
+  }
+}
+
+/* Light mode */
+@media (prefers-color-scheme: light) {
+  .share-buttons {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+
+  .share-title {
+    color: rgba(0, 0, 0, 0.9);
+  }
+
+  .share-btn {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: #000;
+  }
+
+  .share-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  .qr-code-container {
+    background: rgba(0, 0, 0, 0.03);
+  }
+
+  .qr-instructions {
+    color: rgba(0, 0, 0, 0.7);
+  }
+}
+

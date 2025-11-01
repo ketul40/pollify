@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getPoll, submitVote, checkVoted } from '../utils/api';
+import { celebrateVote } from '../utils/celebrations';
 import PollResults from './PollResults';
 import './ViewPoll.css';
 
@@ -63,7 +64,10 @@ function ViewPoll() {
 
     try {
       await submitVote(pollId, selectedOptions);
-      setShowResults(true);
+      celebrateVote(); // 🎉 Celebration!
+      setTimeout(() => {
+        setShowResults(true);
+      }, 800);
       // Refresh poll data
       const updatedPoll = await getPoll(pollId);
       setPoll(updatedPoll);

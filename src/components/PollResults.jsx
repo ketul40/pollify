@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getResults } from '../utils/api';
+import ShareButtons from './ShareButtons';
+import PollStatistics from './PollStatistics';
 import './PollResults.css';
 
 function PollResults({ pollId, onBackToVote }) {
@@ -108,21 +110,9 @@ function PollResults({ pollId, onBackToVote }) {
           </button>
         </div>
 
-        <div className="share-section">
-          <p className="share-label">Share this poll</p>
-          <div className="share-controls">
-            <input
-              type="text"
-              className="share-link"
-              value={window.location.href}
-              readOnly
-              onClick={(e) => e.target.select()}
-            />
-            <button onClick={copyLink} className="copy-btn">
-              {copied ? '✓ Copied!' : 'Copy'}
-            </button>
-          </div>
-        </div>
+        <PollStatistics results={results} />
+
+        <ShareButtons pollId={pollId} question={results.question} />
 
         <div className="live-indicator">
           <span className="live-dot"></span>

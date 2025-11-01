@@ -1,0 +1,259 @@
+.poll-statistics {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+
+.stats-title {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(100, 108, 255, 0.3);
+}
+
+.stat-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #646cff 0%, #61dafb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Winner Section */
+.winner-section {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(100, 108, 255, 0.1) 0%, rgba(97, 218, 251, 0.1) 100%);
+  border: 2px solid rgba(100, 108, 255, 0.3);
+  border-radius: 16px;
+  text-align: center;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(100, 108, 255, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(100, 108, 255, 0);
+  }
+}
+
+.winner-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, #646cff 0%, #61dafb 100%);
+  border-radius: 20px;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.winner-details {
+  margin-top: 1rem;
+}
+
+.winner-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.winner-stats {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Leaderboard */
+.leaderboard {
+  margin-top: 1.5rem;
+}
+
+.leaderboard-title {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.leaderboard-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateX(4px);
+}
+
+.rank-badge {
+  font-size: 1.5rem;
+  min-width: 40px;
+  text-align: center;
+}
+
+.rank-option {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+}
+
+.rank-stats {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.rank-votes {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.rank-percentage {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .winner-name {
+    font-size: 1.25rem;
+  }
+
+  .leaderboard-item {
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .rank-badge {
+    font-size: 1.25rem;
+    min-width: 30px;
+  }
+
+  .rank-option {
+    font-size: 0.9rem;
+  }
+}
+
+/* Light mode */
+@media (prefers-color-scheme: light) {
+  .poll-statistics {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+
+  .stats-title {
+    color: rgba(0, 0, 0, 0.9);
+  }
+
+  .stat-card {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .stat-card:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  .stat-label {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .winner-name {
+    color: #000;
+  }
+
+  .winner-stats {
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  .leaderboard-title {
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .leaderboard-item {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .leaderboard-item:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  .rank-option {
+    color: #000;
+  }
+
+  .rank-votes {
+    color: rgba(0, 0, 0, 0.9);
+  }
+
+  .rank-percentage {
+    color: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.08);
+  }
+}
+
