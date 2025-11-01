@@ -59,64 +59,61 @@ function PollResults({ pollId, onBackToVote }) {
       </div>
 
       <div className="results-card">
-        <div className="results-title-section">
-          <h2 className="results-question">{results.question}</h2>
-          <div className="total-votes">
-            <span className="vote-count">{results.totalVotes}</span>
-            <span className="vote-label">total vote{results.totalVotes !== 1 ? 's' : ''}</span>
+        <div className="results-container">
+          <div className="results-main">
+            <div className="results-title-section">
+              <h2 className="results-question">{results.question}</h2>
+            </div>
+
+            <div className="results-list">
+              {results.options.map((option, index) => {
+                const votes = results.votes[index] || 0;
+                const percentage = results.totalVotes > 0 
+                  ? Math.round((votes / results.totalVotes) * 100) 
+                  : 0;
+                const barWidth = results.totalVotes > 0
+                  ? (votes / maxVotes) * 100
+                  : 0;
+
+                return (
+                  <div key={index} className="result-item">
+                    <div className="result-header">
+                      <span className="result-option">{option}</span>
+                      <div className="result-stats">
+                        <span className="result-votes">{votes} vote{votes !== 1 ? 's' : ''}</span>
+                        <span className="result-percentage">{percentage}%</span>
+                      </div>
+                    </div>
+                    <div className="result-bar-container">
+                      <div 
+                        className="result-bar"
+                        style={{ width: `${barWidth}%` }}
+                      >
+                        <div className="bar-shine"></div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="results-actions">
+              {onBackToVote && (
+                <button onClick={onBackToVote} className="secondary-btn">
+                  Back to Poll
+                </button>
+              )}
+              <button onClick={() => navigate('/')} className="create-new-btn">
+                Create New Poll
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div className="results-list">
-          {results.options.map((option, index) => {
-            const votes = results.votes[index] || 0;
-            const percentage = results.totalVotes > 0 
-              ? Math.round((votes / results.totalVotes) * 100) 
-              : 0;
-            const barWidth = results.totalVotes > 0
-              ? (votes / maxVotes) * 100
-              : 0;
-
-            return (
-              <div key={index} className="result-item">
-                <div className="result-header">
-                  <span className="result-option">{option}</span>
-                  <div className="result-stats">
-                    <span className="result-votes">{votes} vote{votes !== 1 ? 's' : ''}</span>
-                    <span className="result-percentage">{percentage}%</span>
-                  </div>
-                </div>
-                <div className="result-bar-container">
-                  <div 
-                    className="result-bar"
-                    style={{ width: `${barWidth}%` }}
-                  >
-                    <div className="bar-shine"></div>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="results-actions">
-          {onBackToVote && (
-            <button onClick={onBackToVote} className="secondary-btn">
-              Back to Poll
-            </button>
-          )}
-          <button onClick={() => navigate('/')} className="create-new-btn">
-            Create New Poll
-          </button>
-        </div>
-
-        <PollStatistics results={results} />
-
-        <ShareButtons pollId={pollId} question={results.question} />
-
-        <div className="live-indicator">
-          <span className="live-dot"></span>
-          <span>Results update every 3 seconds</span>
+          <div className="results-sidebar">
+            <PollStatistics results={results} />
+            
+            <ShareButtons pollId={pollId} question={results.question} />
+          </div>
         </div>
       </div>
     </div>

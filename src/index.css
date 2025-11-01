@@ -13,6 +13,23 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
+  /* Responsive variables */
+  --base-font-size: 16px;
+}
+
+/* 1080p screens */
+@media (min-width: 1367px) and (max-width: 1920px) {
+  :root {
+    --base-font-size: 17px;
+  }
+}
+
+/* 1440+ screens */
+@media (min-width: 1921px) {
+  :root {
+    --base-font-size: 18px;
+  }
 }
 
 * {

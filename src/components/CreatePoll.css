@@ -275,21 +275,187 @@
 }
 
 /* Responsive */
+/* Mobile */
 @media (max-width: 768px) {
   .create-poll {
-    padding: 2rem 1rem;
+    max-width: 100%;
+    padding: 1.5rem 1rem;
   }
 
   .create-poll-header h1 {
-    font-size: 2rem;
+    font-size: 1.75rem;
+  }
+
+  .logo-icon {
+    font-size: 2.25rem;
+  }
+
+  .tagline {
+    font-size: 0.95rem;
   }
 
   .poll-form {
     padding: 1.5rem;
+    border-radius: 16px;
+  }
+
+  .question-input {
+    font-size: 1rem;
+    padding: 0.875rem 1rem;
+  }
+
+  .option-input {
+    font-size: 0.95rem;
+    padding: 0.75rem 0.875rem;
   }
 
   .features-info {
     gap: 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* Tablet/Small Desktop (769px - 1366px) */
+@media (min-width: 769px) and (max-width: 1366px) {
+  .create-poll {
+    max-width: 750px;
+    padding: 2.5rem 2rem;
+  }
+
+  .poll-form {
+    padding: 2rem;
+  }
+}
+
+/* 1080p (1367px - 1920px) */
+@media (min-width: 1367px) and (max-width: 1920px) {
+  .create-poll {
+    max-width: 850px;
+    padding: 2rem 2.5rem 1.5rem;
+  }
+
+  .create-poll-header {
+    margin-bottom: 2rem;
+  }
+
+  .logo-icon {
+    font-size: 2.75rem;
+  }
+
+  .create-poll-header h1 {
+    font-size: 2.25rem;
+  }
+
+  .tagline {
+    font-size: 1.05rem;
+  }
+
+  .templates-trigger-btn {
+    margin-bottom: 1.5rem;
+    padding: 0.875rem 1.5rem;
+  }
+
+  .poll-form {
+    padding: 2rem;
+    border-radius: 20px;
+  }
+
+  .form-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .question-input {
+    font-size: 1.1rem;
+    padding: 0.875rem 1.25rem;
+  }
+
+  .option-input {
+    font-size: 1rem;
+    padding: 0.875rem 1rem;
+  }
+
+  .options-list {
+    gap: 0.625rem;
+    margin-bottom: 0.875rem;
+  }
+
+  .form-label {
+    font-size: 0.95rem;
+    margin-bottom: 0.625rem;
+  }
+
+  .create-btn {
+    font-size: 1.05rem;
+    padding: 1rem 1.75rem;
+  }
+
+  .features-info {
+    margin-top: 2rem;
+  }
+}
+
+/* 1440+ (1921px and above) */
+@media (min-width: 1921px) {
+  .create-poll {
+    max-width: 1000px;
+    padding: 4rem 3rem;
+  }
+
+  .logo-icon {
+    font-size: 4rem;
+  }
+
+  .create-poll-header h1 {
+    font-size: 3.25rem;
+  }
+
+  .tagline {
+    font-size: 1.35rem;
+  }
+
+  .poll-form {
+    padding: 3.5rem;
+    border-radius: 28px;
+  }
+
+  .question-input {
+    font-size: 1.35rem;
+    padding: 1.25rem 1.75rem;
+    border-radius: 14px;
+  }
+
+  .option-input {
+    font-size: 1.2rem;
+    padding: 1.125rem 1.5rem;
+    border-radius: 12px;
+  }
+
+  .option-number {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+  }
+
+  .form-label {
+    font-size: 1.1rem;
+  }
+
+  .create-btn {
+    font-size: 1.25rem;
+    padding: 1.375rem 2.5rem;
+  }
+
+  .features-info {
+    gap: 2.5rem;
+    margin-top: 3.5rem;
+  }
+
+  .feature-item {
+    font-size: 1rem;
+  }
+
+  .feature-icon {
+    font-size: 1.5rem;
   }
 }
 
