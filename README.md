@@ -2,7 +2,7 @@
 
 **Simple, Instant Polls for Everyone**
 
-Pollify is a frictionless full-stack polling application that lets you create polls in seconds, share them instantly, and see real-time results without any login or complicated setup. Built with React, Node.js, Express, and MongoDB.
+Pollify is a frictionless polling application that lets you create polls in seconds, share them instantly, and see real-time results without any login or complicated setup. Built with React and Firebase.
 
 ## 🎯 Core Features
 
@@ -26,50 +26,34 @@ Pollify is a frictionless full-stack polling application that lets you create po
 ### Prerequisites
 - Node.js (version 16 or higher)
 - npm or yarn
-- MongoDB (local) OR MongoDB Atlas account (free)
+- Firebase account (free)
 
 ### Quick Start
 
-1. **Install dependencies:**
+1. **Create Firebase Project** (see [FIREBASE_SETUP.md](./FIREBASE_SETUP.md))
+   - Go to [console.firebase.google.com](https://console.firebase.google.com)
+   - Create a new project
+   - Set up Firestore Database
+   - Copy your Firebase config
+
+2. **Install dependencies:**
 ```bash
-# Frontend dependencies
 npm install
-
-# Backend dependencies
-cd server
-npm install
-cd ..
 ```
 
-2. **Set up environment variables:**
+3. **Configure Firebase:**
 
-Create `.env.local` in root (frontend):
+Create `.env.local` in project root:
 ```env
-VITE_API_URL=http://localhost:3001/api
-```
-
-Create `.env` in root (backend):
-```env
-MONGODB_URI=mongodb://localhost:27017/pollify
-PORT=3001
-CLIENT_URL=http://localhost:5173
-```
-
-3. **Start MongoDB:**
-```bash
-# Make sure MongoDB is running locally
-# Or use MongoDB Atlas (see BACKEND_SETUP.md)
+VITE_FIREBASE_API_KEY=your_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
 ```
 
 4. **Start the application:**
-
-Terminal 1 (Backend):
-```bash
-cd server
-npm run dev
-```
-
-Terminal 2 (Frontend):
 ```bash
 npm run dev
 ```
@@ -79,7 +63,7 @@ Navigate to `http://localhost:5173`
 
 ### Detailed Setup
 
-- **Backend Setup**: See [BACKEND_SETUP.md](./BACKEND_SETUP.md) for MongoDB installation and configuration
+- **Firebase Setup**: See [FIREBASE_SETUP.md](./FIREBASE_SETUP.md) for complete Firebase configuration
 - **Deployment**: See [DEPLOYMENT.md](./DEPLOYMENT.md) for production deployment instructions
 
 ### Build for Production
@@ -124,22 +108,21 @@ npm run preview
 - **CSS3** - Modern styling with gradients, animations, and glass-morphism
 
 ### Backend
-- **Node.js** - JavaScript runtime
-- **Express** - Web application framework
-- **MongoDB** - NoSQL database for poll storage
-- **CORS** - Cross-origin resource sharing
+- **Firebase Firestore** - NoSQL cloud database
+- **Firebase Hosting** - Fast and secure hosting
 
 ### Features
 - **Real-time Updates** - Results refresh every 3 seconds
 - **Anonymous Voting** - No login required, tracked by unique browser ID
-- **RESTful API** - Clean API architecture
-- **Persistent Storage** - Polls stored in MongoDB database
+- **Serverless Architecture** - No backend server needed!
+- **Persistent Storage** - Polls stored in Firebase Firestore
+- **Instant Deployment** - Deploy with one command
 
 ## 📂 Project Structure
 
 ```
 pollify/
-├── src/                          # Frontend source code
+├── src/
 │   ├── components/
 │   │   ├── CreatePoll.jsx       # Poll creation form
 │   │   ├── CreatePoll.css
@@ -147,23 +130,23 @@ pollify/
 │   │   ├── ViewPoll.css
 │   │   ├── PollResults.jsx      # Results display
 │   │   └── PollResults.css
+│   ├── firebase/
+│   │   └── config.js            # Firebase configuration
 │   ├── utils/
-│   │   ├── api.js               # API client functions
-│   │   └── pollUtils.js         # (deprecated - now using API)
+│   │   ├── api.js               # Firestore API functions
+│   │   └── pollUtils.js         # (legacy - for reference)
 │   ├── App.jsx                  # Main app with routing
 │   ├── App.css                  # Global app styles
 │   ├── main.jsx                 # React entry point
 │   └── index.css                # Global CSS reset
-├── server/                       # Backend source code
-│   ├── index.js                 # Express server & API routes
-│   └── package.json             # Backend dependencies
 ├── public/
 │   └── vite.svg
 ├── index.html
 ├── vite.config.js
-├── package.json                 # Frontend dependencies
-├── BACKEND_SETUP.md             # Backend setup instructions
-└── DEPLOYMENT.md                # Deployment guide
+├── package.json
+├── FIREBASE_SETUP.md            # Firebase setup guide
+├── DEPLOYMENT.md                # Deployment guide
+└── README.md                    # This file
 ```
 
 ## 🎨 Features in Detail
@@ -172,7 +155,7 @@ pollify/
 - No login required
 - No personal data collected
 - Anonymous voter IDs generated per browser
-- Polls stored in MongoDB database
+- Polls stored securely in Firebase Firestore
 - One vote per device enforced
 
 ### Beautiful UI
@@ -199,17 +182,19 @@ pollify/
 ## 🔮 Future Enhancements
 
 Potential features for future development:
-- ✅ ~~Backend API for persistent storage~~ (Completed!)
-- ✅ ~~Real-time updates~~ (Polling every 3s - Completed!)
-- WebSocket updates for instant real-time
-- Poll expiration dates
+- ✅ ~~Persistent storage~~ (Completed with Firebase!)
+- ✅ ~~Real-time updates~~ (Results refresh every 3s!)
+- ✅ ~~Serverless architecture~~ (Firebase Firestore!)
+- WebSocket updates for instant real-time (Firebase Realtime Database)
+- Poll expiration dates (with Cloud Functions)
 - Custom poll URLs
-- Poll analytics and insights
+- Poll analytics dashboard
 - Export results to CSV/PDF
 - Social media preview cards
 - Poll templates
-- User accounts (optional)
+- User accounts (Firebase Auth)
 - Poll categories and tags
+- Image/GIF support in polls
 
 ## 📄 License
 
@@ -228,6 +213,8 @@ This is a learning project, but contributions are welcome! Feel free to:
 - [React Documentation](https://react.dev)
 - [React Router Documentation](https://reactrouter.com)
 - [Vite Documentation](https://vitejs.dev)
+- [Firebase Documentation](https://firebase.google.com/docs)
+- [Firestore Documentation](https://firebase.google.com/docs/firestore)
 
 ---
 

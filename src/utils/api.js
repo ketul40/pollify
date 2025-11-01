@@ -1,5 +1,14 @@
-// API configuration
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+import { 
+  collection, 
+  doc, 
+  getDoc, 
+  setDoc, 
+  updateDoc,
+  increment,
+  arrayUnion,
+  serverTimestamp 
+} from 'firebase/firestore';
+import { db } from '../firebase/config';
 
 // Generate a unique voter ID for this browser
 const getVoterId = () => {
@@ -11,23 +20,41 @@ const getVoterId = () => {
   return voterId;
 };
 
+// Generate a unique poll ID
+const generatePollId = () => {
+  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  let id = '';
+  for (let i = 0; i < 8; i++) {
+    id += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return id;
+};
+
 // Create a new poll
 export const createPoll = async (pollData) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/polls`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(pollData),
+    const pollId = generatePollId();
+    
+    // Initialize votes object
+    const votes = {};
+    pollData.options.forEach((_, index) => {
+      votes[index] = 0;
     });
 
-    if (!response.ok) {
-      throw new Error('Failed to create poll');
-    }
+    const poll = {
+      pollId,
+      question: pollData.question,
+      options: pollData.options,
+      multipleChoice: pollData.multipleChoice || false,
+      votes,
+      voterIds: [],
+      createdAt: serverTimestamp()
+    };
 
-    const data = await response.json();
-    return data;
+    // Save to Firestore
+    await setDoc(doc(db, 'polls', pollId), poll);
+
+    return { pollId };
   } catch (error) {
     console.error('Error creating poll:', error);
     throw error;
@@ -37,17 +64,14 @@ export const createPoll = async (pollData) => {
 // Get poll by ID
 export const getPoll = async (pollId) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/polls/${pollId}`);
+    const pollRef = doc(db, 'polls', pollId);
+    const pollSnap = await getDoc(pollRef);
 
-    if (!response.ok) {
-      if (response.status === 404) {
-        return null;
-      }
-      throw new Error('Failed to fetch poll');
+    if (!pollSnap.exists()) {
+      return null;
     }
 
-    const data = await response.json();
-    return data;
+    return pollSnap.data();
   } catch (error) {
     console.error('Error fetching poll:', error);
     throw error;
@@ -58,24 +82,36 @@ export const getPoll = async (pollId) => {
 export const submitVote = async (pollId, optionIndices) => {
   try {
     const voterId = getVoterId();
-    const response = await fetch(`${API_BASE_URL}/polls/${pollId}/vote`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        optionIndices,
-        voterId,
-      }),
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.error || 'Failed to submit vote');
+    const pollRef = doc(db, 'polls', pollId);
+    
+    // Get current poll data to check if user has voted
+    const pollSnap = await getDoc(pollRef);
+    
+    if (!pollSnap.exists()) {
+      throw new Error('Poll not found');
     }
 
-    const data = await response.json();
-    return data;
+    const poll = pollSnap.data();
+    
+    // Check if user has already voted
+    if (poll.voterIds && poll.voterIds.includes(voterId)) {
+      throw new Error('You have already voted on this poll');
+    }
+
+    // Prepare update object
+    const updates = {
+      voterIds: arrayUnion(voterId)
+    };
+
+    // Increment vote counts for selected options
+    optionIndices.forEach(index => {
+      updates[`votes.${index}`] = increment(1);
+    });
+
+    // Update the poll
+    await updateDoc(pollRef, updates);
+
+    return { message: 'Vote recorded successfully' };
   } catch (error) {
     console.error('Error submitting vote:', error);
     throw error;
@@ -85,17 +121,22 @@ export const submitVote = async (pollId, optionIndices) => {
 // Get poll results
 export const getResults = async (pollId) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/polls/${pollId}/results`);
-
-    if (!response.ok) {
-      if (response.status === 404) {
-        return null;
-      }
-      throw new Error('Failed to fetch results');
+    const poll = await getPoll(pollId);
+    
+    if (!poll) {
+      return null;
     }
 
-    const data = await response.json();
-    return data;
+    const totalVotes = Object.values(poll.votes || {}).reduce((sum, count) => sum + count, 0);
+
+    return {
+      question: poll.question,
+      options: poll.options,
+      votes: poll.votes,
+      totalVotes,
+      multipleChoice: poll.multipleChoice,
+      createdAt: poll.createdAt
+    };
   } catch (error) {
     console.error('Error fetching results:', error);
     throw error;
@@ -106,23 +147,15 @@ export const getResults = async (pollId) => {
 export const checkVoted = async (pollId) => {
   try {
     const voterId = getVoterId();
-    const response = await fetch(`${API_BASE_URL}/polls/${pollId}/check-vote`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ voterId }),
-    });
+    const poll = await getPoll(pollId);
 
-    if (!response.ok) {
+    if (!poll) {
       return false;
     }
 
-    const data = await response.json();
-    return data.hasVoted;
+    return poll.voterIds && poll.voterIds.includes(voterId);
   } catch (error) {
     console.error('Error checking vote status:', error);
     return false;
   }
 };
-
